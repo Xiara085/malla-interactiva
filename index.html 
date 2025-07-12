@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ingeniería Mecatrónica Xiara</title>
+  <style>
+    body {
+      font-family: 'Arial Rounded MT Bold', sans-serif;
+      background: linear-gradient(to bottom, #e6e6fa, #d0f0fd);
+      background-image: url('https://i.imgur.com/PSYTC2y.png'); /* imagen suave de nubes/flores */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #333;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #6a0dad;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2em;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 15px;
+    }
+
+    .materia {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: #f0e5ff;
+      border: 2px solid #b19cd9;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .materia:hover {
+      transform: scale(1.05);
+    }
+
+    .aprobada {
+      text-decoration: line-through;
+      background-color: #c6ffe2;
+      border-color: #4caf50;
+    }
+
+    .bloqueada {
+      background-color: #f8d7da;
+      border-color: #dc3545;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .contenedor {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Ingeniería Mecatrónica Xiara</h1>
+  <div class="contenedor" id="malla">
+    <!-- Las materias se generan automáticamente -->
+  </div>
+
+  <script>
+    const materias = [
+      { id: "MAT101", nombre: "Cálculo I", prerrequisitos: [] },
+      { id: "FIS102", nombre: "Física I", prerrequisitos: ["MAT101"] },
+      { id: "PRO103", nombre: "Programación I", prerrequisitos: [] },
+      { id: "MEC201", nombre: "Mecánica I", prerrequisitos: ["MAT101", "FIS102"] },
+      { id: "ELE202", nombre: "Electrónica Básica", prerrequisitos: ["FIS102"] },
+      { id: "AUT301", nombre: "Automatización", prerrequisitos: ["MEC201", "ELE202"] },
+      { id: "PID302", nombre: "Control PID", prerrequisitos: ["AUT301"] },
+    ];
+
+    const estadoMaterias = {};
+
+    function crearMalla() {
+      const contenedor = document.getElementById("malla");
+      contenedor.innerHTML = "";
+
+      materias.forEach(materia => {
+        const div = document.createElement("div");
+        div.className = "materia";
+        div.textContent = materia.nombre;
+        div.id = materia.id;
+
+        const desbloqueada = materia.prerrequisitos.every(pr => estadoMaterias[pr] === true);
+
+        if (!desbloqueada && materia.prerrequisitos.length > 0) {
+          div.classList.add("bloqueada");
+        }
+
+        if (estadoMaterias[materia.id]) {
+          div.classList.add("aprobada");
+        }
+
+        div.addEventListener("click", () => {
+          if (!desbloqueada && materia.prerrequisitos.length > 0) return;
+          estadoMaterias[materia.id] = !estadoMaterias[materia.id];
+          crearMalla();
+        });
+
+        contenedor.appendChild(div);
+      });
+    }
+
+    crearMalla();
+  </script>
+</body>
+</html>
