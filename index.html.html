@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingeniería Mecatrónica Xiara</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #e1f7ff, #ffffff);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #4a148c;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(to right, #42a5f5, #ce93d8);
+            padding: 25px;
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px #555;
+        }
+        .cuatrimestre {
+            margin: 20px;
+            padding: 20px;
+            border: 2px solid #9575cd;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .cuatrimestre h2 {
+            margin-top: 0;
+            text-align: center;
+            color: #1565c0;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .subject {
+            background: #e3f2fd;
+            border: 2px solid #64b5f6;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .subject:hover {
+            transform: scale(1.03);
+        }
+        .subject.completed {
+            text-decoration: line-through;
+            background-color: #c5cae9;
+            color: #555;
+        }
+        .subject.locked {
+            background-color: #f3e5f5;
+            color: #aaa;
+            border: 2px dashed #b39ddb;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <header>Ingeniería Mecatrónica Xiara</header>
+<div class="cuatrimestre" data-cuatri="1">
+  <h2>Sexto Cuatrimestre</h2>
+  <div class="container">
+    <div class="subject" id="c1_m0" data-cuatri="1">Estadía Profesional (480 horas)</div>
+  </div>
+</div>
+<div class="cuatrimestre" data-cuatri="2">
+  <h2>Séptimo Cuatrimestre</h2>
+  <div class="container">
+    <div class="subject locked" id="c2_m0" data-cuatri="2">Matemáticas para Ingeniería I</div>
+    <div class="subject locked" id="c2_m1" data-cuatri="2">Física para Ingeniería</div>
+    <div class="subject locked" id="c2_m2" data-cuatri="2">Instrumentación Virtual</div>
+    <div class="subject locked" id="c2_m3" data-cuatri="2">Electricidad Industrial</div>
+    <div class="subject locked" id="c2_m4" data-cuatri="2">Inglés VI</div>
+    <div class="subject locked" id="c2_m5" data-cuatri="2">Administración del Tiempo</div>
+  </div>
+</div>
+<div class="cuatrimestre" data-cuatri="3">
+  <h2>Octavo Cuatrimestre</h2>
+  <div class="container">
+    <div class="subject locked" id="c3_m0" data-cuatri="3">Matemáticas para Ingeniería II</div>
+    <div class="subject locked" id="c3_m1" data-cuatri="3">Mecánica para la Automatización</div>
+    <div class="subject locked" id="c3_m2" data-cuatri="3">Control de Motores II</div>
+    <div class="subject locked" id="c3_m3" data-cuatri="3">Diseño Asistido por Computadora</div>
+    <div class="subject locked" id="c3_m4" data-cuatri="3">Inglés VII</div>
+    <div class="subject locked" id="c3_m5" data-cuatri="3">Planeación y Organización del Trabajo</div>
+  </div>
+</div>
+<div class="cuatrimestre" data-cuatri="4">
+  <h2>Noveno Cuatrimestre</h2>
+  <div class="container">
+    <div class="subject locked" id="c4_m0" data-cuatri="4">Control Automático</div>
+    <div class="subject locked" id="c4_m1" data-cuatri="4">Ingeniería de Proyectos</div>
+    <div class="subject locked" id="c4_m2" data-cuatri="4">Sistemas Mecánicos II</div>
+    <div class="subject locked" id="c4_m3" data-cuatri="4">Optativa</div>
+    <div class="subject locked" id="c4_m4" data-cuatri="4">Inglés VIII</div>
+    <div class="subject locked" id="c4_m5" data-cuatri="4">Dirección de Equipos de Alto Rendimiento</div>
+  </div>
+</div>
+<div class="cuatrimestre" data-cuatri="5">
+  <h2>Décimo Cuatrimestre</h2>
+  <div class="container">
+    <div class="subject locked" id="c5_m0" data-cuatri="5">Sistemas de Manufactura Flexible</div>
+    <div class="subject locked" id="c5_m1" data-cuatri="5">Control Lógico Avanzado (PLC II)</div>
+    <div class="subject locked" id="c5_m2" data-cuatri="5">Dispositivos Digitales Programables</div>
+    <div class="subject locked" id="c5_m3" data-cuatri="5">Integradora III</div>
+    <div class="subject locked" id="c5_m4" data-cuatri="5">Inglés IX</div>
+    <div class="subject locked" id="c5_m5" data-cuatri="5">Negociación Empresarial</div>
+  </div>
+</div>
+<div class="cuatrimestre" data-cuatri="6">
+  <h2>Onceavo Cuatrimestre</h2>
+  <div class="container">
+    <div class="subject locked" id="c6_m0" data-cuatri="6">Estadía Profesional (480 horas)</div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.subject').forEach(el => {
+    el.addEventListener('click', () => {
+      if (!el.classList.contains('locked')) {
+        el.classList.toggle('completed');
+        checkCuatrimestre(el.getAttribute('data-cuatri'));
+      }
+    });
+  });
+
+  function checkCuatrimestre(cuatriNum) {
+    const cuatri = document.querySelector(`.cuatrimestre[data-cuatri="${cuatriNum}"]`);
+    const subjects = Array.from(cuatri.querySelectorAll('.subject'));
+    const allDone = subjects.every(s => s.classList.contains('completed'));
+    if (allDone && !cuatri.dataset.alerted) {
+      if (parseInt(cuatriNum) === 6) {
+        alert("¡Felicidades ingeniera, lo lograste!");
+      } else {
+        alert("¡Felicidades, estás más cerca de la meta!");
+        const next = document.querySelector(`.cuatrimestre[data-cuatri="${parseInt(cuatriNum)+1}"]`);
+        if (next) {
+          next.querySelectorAll('.subject.locked').forEach(s => s.classList.remove('locked'));
+        }
+      }
+      cuatri.dataset.alerted = "true";
+    }
+  }
+</script>
+</body>
+</html>
